@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<body>
+    <div class="welcome_protomedia">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-md-6">
+                    <h3>Welcome to Create <br>
+                        Content blog</h3>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="add_here">
+                        <a href="/blogs/picking-innovations-as-an-architect">
+                            <img src="{% static 'img/add/add.jpg' %}" alt="add">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="photographi_area">
+        <div class="container">
+            <div class="row">
+                {% for obj in object_list %}
+                <div class="col-xl-6 col-md-6">
+                    <div class="single_photography photography_bg_1" style="background: url({{ obj.image.url }});">
+                        <div class="info">
+                            <div class="info_inner">
+                                <h3><a href="blogs/{{ obj.slug }}">{{ obj.title }}</a></h3>
+                                <div class="date_catagory d-flex align-items-center justify-content-between">
+                                    <span>{{ obj.timestamp }}</span>
+                                    <span class="catagory">{{ obj.Category }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="photography_slider_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="photoslider_active owl-carousel">
+                        {% for obj in post %}
+                        <div class="single_photography">
+                            {% for blog in post1 %}<a href="/category/{{ blog.Category.id }}">{% endfor %}
+                            <img src="{{ obj.image.url }}" alt="">
+                            <div class="photo_title">
+                                <h4>{{ obj.title }}</h4>
+                            </div></a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="most_recent_blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section_title mb-33">
+                        <h3>Most Recent</h3>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-md-8">
+                    <div class="row">
+                        {% for recent_post in recent_post %}
+                        <div class="col-xl-6 col-md-6">
+                            <div class="single_blog">
+                                <div class="blog_thumb">
+                                    <a href="/blogs/{{ recent_post.slug }}">
+                                        <img src="{{ recent_post.image.url }}" alt="">
+                                    </a>
+                                </div>
+                                <div class="blog_meta">
+                                    <p><a href="/blogs/{{ recent_post.slug }}">{{ recent_post.Category }} | {{ recent_post.timestamp }}</a></p>
+                                    <h3><a href="/blogs/{{ recent_post.slug }}">
+                                        {{ recent_post.title }}
+                                        </a></h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="col-xl-12">
+                            <div class="btn_area text-center">
+                                <a href="/blogs" class="boxed-btn">Load More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4">
+                    <div class="blog_right_side">
+                        <div class="section_title mb-33">
+                            <h3>Follow Us</h3>
+                        </div>
+                        <div class="foollow_links">
+                            <ul class="d-flex align-items-center justify-content-between">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-facebook"></i>
+                                        <h2>142K</h2>
+                                        <p>followers</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="insta" href="#">
+                                        <i class="fa fa-instagram"></i>
+                                        <h2>142K</h2>
+                                        <p>followers</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="twitter" href="#">
+                                        <i class="fa fa-twitter"></i>
+                                        <h2>142K</h2>
+                                        <p>followers</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="add_here text-center">
+                            <a href="/blogs/five-passive-income-streams-i-plan-to-perfect-in-2021">
+                                <img src="{% static 'img/most_recent/googleAdd.jpg' %}" alt="income">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="photo_gallery">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section_title mb-33">
+                        <h3>Trending Posts</h3>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="photo_gallery_active owl-carousel">
+                        {% for trends in trends %}
+                        <div class="single_photo_gallery" style="background-image: url({{ trends.image.url }})">
+                            <a href="/blogs/{{ trends.slug }}">
+                            <div class="photo_caption">
+                                <h3>{{ trends.title }}{{ forloop.counter }}</h3>
+                            </div></a>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subscribe_newsletter">
+        <div class="container">
+            <div class="black_bg">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="newsletter_text">
+                            <h3>
+                                Subscribe newsletter
+                            </h3>
+                            <p>Get updates to our newsletter and new articles</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="newsform">
+                            <form action="/subscribed" method="POST">
+                                {% csrf_token %}
+                                <input type="email" name="email" placeholder="Enter Your Email">
+                                <button type="submit">sign up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

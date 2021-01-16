@@ -1,0 +1,195 @@
+{% extends 'post_base.html' %}
+{% block content %}
+{% load static %}
+<script id="dsq-count-scr" src="//create-content.disqus.com/count.js" async></script>
+    <!-- header_image_start -->
+    <div class="breadcam_area bradcam_bg overlay2">
+  </div>
+  <br>
+  <!-- header_image_end -->
+     </div>
+
+
+   <!--================Blog Area =================-->
+   <section class="blog_area single-post-area ">
+      <div class="container">
+                 <!-- breadcam_area_start -->
+    <div>
+      <div class="bradcam_text">
+         <ul>          
+            <li style="display: inline;"><a href="/"><i class="fa fa-home"></i> Home </a></li>
+            <li style="display: inline;"><a href="/blogs"><i class="fa fa-angle-double-right" aria-hidden="true"></i> blogs </a></li>
+            <li style="display: inline;">{% for blog in blog|slice:":1" %} <i class="fa fa-angle-double-right" aria-hidden="true"></i> {{ blog.title }}{% endfor %} </li>
+         </ul>
+      </div>
+  </div>
+  <br>
+  <!-- breadcam_area_end -->
+         <div class="row">
+            
+            <div class="col-lg-8 posts-list">
+               <div class="single-post">
+                  <div class="feature-img">
+                     <img class="img-fluid" src="{{ posts.image.url }}" alt="{{ posts.alt }}">
+                  </div>
+                  <div class="blog_details">
+                     <h2>{{ posts.title }}
+                     </h2>
+                     <ul class="blog-info-link mt-3 mb-4">
+                        
+                        <li>{% for blog in blog %}<a href="/category/{{ blog.Category.id }}">{% endfor %}<i class="fa fa-user"></i> {{ posts.Category }}</a></li>
+                        <li>{{ posts.views }} Views</li>
+                        <li><a href="#disqus_thread"><i class="fa fa-comments"></i> 0 Comment</a></li>
+                     </ul>
+                     
+                     <p>{{ posts.overview | safe }}</p>
+                     
+                  </div>
+               </div>
+               <div class="navigation-top">
+                 
+                  <div class="navigation-area">
+                     <div class="row">
+                        <div
+                           class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                           <div class="thumb">
+                              {% if posts.previous_post %}
+                              <a href="{{ posts.previous_post.slug }}">
+                                 <img class="img-fluid" src="{% static 'img/post/preview.png' %}" alt="">
+                              </a>
+                              
+                           </div>
+                           <div class="arrow">
+                              <a href="{{ posts.previous_post.slug }}">
+                                 <span class="lnr text-white ti-arrow-left"></span>
+                              </a>
+                           </div>
+                           <div class="detials">
+                              <p>Prev Post</p>
+                              <a href="{{ posts.previous_post.slug }}">
+                                 <h4>{{ posts.previous_post.title }}</h4>
+                              </a>
+                           </div>
+                           {% endif %}
+                        </div>
+                        <div
+                           class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                           <div class="detials">
+                              {% if posts.next_post %}
+                              <p>Next Post</p>
+                              <a href="{{ posts.next_post.slug }}">
+                                 <h4>{{ posts.next_post.title }}</h4>
+                              </a>
+                           </div>
+                           <div class="arrow">
+                              <a href="{{ posts.next_post.slug }}">
+                                 <span class="lnr text-white ti-arrow-right"></span>
+                              </a>
+                           </div>
+                           <div class="thumb">
+                              
+                              <a href="{{ posts.next_post.slug }}">
+                                 <img class="img-fluid" src="{% static 'img/post/next.png' %}" alt="">
+                              </a>
+                              {% endif %}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="blog-author">
+                  <div class="media align-items-center">
+                     <img src="{{ posts.author.profile_picture.url }}" alt="{{ posts.author.alt_profile }}">
+                     <div class="media-body">
+                        <a href="#">
+                           <h4>{{ posts.author }}</h4>
+                        </a>
+                        <p>{{ posts.author.About | safe }}</p>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="comments-area">
+                  <div class="comment-list">
+                     <div id="disqus_thread"></div>
+                     <script>
+                        (function() {
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://create-content.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                  </div>
+
+               </div> 
+            </div>
+            </div>
+            
+            <div class="col-lg-4">
+               <div class="blog_right_sidebar">
+                  <aside class="single_sidebar_widget search_widget">
+                     <form action="/search">
+                        <div class="form-group">
+                           <div class="input-group mb-3">
+                              <input type="text" name="search_input" class="form-control" placeholder='Search Keyword'
+                                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                              <div class="input-group-append">
+                                 <button class="btn" type="submit"><i class="ti-search"></i></button>
+                              </div>
+                           </div>
+                        </div>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                           type="submit">Search</button>
+                     </form>
+                  </aside>
+                  <aside class="single_sidebar_widget post_category_widget">
+                     <h4 class="widget_title">Category</h4>
+                     <ul class="list cat-list">
+                        {% for blog in blog %}
+                        <li>
+                           <a href="/category/{{ blog.Category.id }}" class="d-flex">
+                              <p>{{ blog.Category }}</p>
+                           </a>
+                        </li>
+                        {% endfor %}
+                     </ul>
+                  </aside>
+                  <aside class="single_sidebar_widget popular_post_widget">
+                     <h3 class="widget_title">Recent Post</h3>
+                     {% for recent_post in recent_post %}
+                     <div class="media post_item">
+                        <img src="{{ recent_post.image.url }}" alt="post" style="width:40%;height:70px;">
+                        <div class="media-body">
+                           <a href="/blogs/{{ recent_post.slug }}">
+                              <h3>{{ recent_post.title }}</h3>
+                           </a>
+                           <p>{{ recent_post.timestamp }}</p>
+                        </div>
+                     </div>
+                     {% endfor %}
+
+                  </aside>
+
+                  <aside class="single_sidebar_widget newsletter_widget">
+                     <h4 class="widget_title">Newsletter</h4>
+                     <form action="/subscribed" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                           <input type="email" name="email" id="email" class="form-control" onfocus="this.placeholder = ''"
+                              onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                        </div>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                           type="submit">Subscribe</button>
+                     </form>
+                  </aside>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--================ Blog Area end =================-->
+
+{% endblock content %}
+</html>

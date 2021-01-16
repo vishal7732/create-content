@@ -1,0 +1,78 @@
+{% load static %}
+    <header>
+        <div class="header-area ">
+            <div class="header_top">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-4 col-md-4 d-none d-md-block">
+                            <div class="header_links ">
+                                <ul>
+                                    <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
+                                    <li><a class="twiter" href="#"> <i class="fa fa-twitter"></i> </a></li>
+                                    <li><a class="insta" href="#"> <i class="fa fa-instagram"></i> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4">
+                            <div class="logo">
+                                <a href="/">
+                                    <img src="{% static 'img/logo.png' %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 d-none d-md-block">
+                            {% if user.is_authenticated %}
+                            <div class="login_resiter">
+                                <p><i class="flaticon-user"></i> {{ user.first_name }} | <a href="/account/logout">Logout</a></p>
+                            </div>
+                            {% else %}
+                            <div class="login_resiter">
+                                <p><a href="/account/login"><i class="flaticon-user"></i>login</a> | <a href="/account/register">Register</a></p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sticky-header" class="main-header-area white-bg">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-7 col-lg-7">
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li><a class="active" href="/">Home</a></li>
+                                        <li><a href="#">category <i class="ti-angle-down"></i></a>
+                                        <ul class="submenu">
+                                            {% for blog in blog %}
+                                            <li><a href="/category/{{ blog.Category.id }}"> {{ blog.Category }} </a></li>
+                                            {% endfor %}
+                                         </ul>
+                                        </li>
+                                        <li><a href="/blogs">Blogs</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5">
+                            <div class="get_serch">
+                                <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                    <div class="search_input" id="search_input_box">
+                            <div class="container ">
+                                <form class="d-flex justify-content-between search-inner" method="GET" action="/search">
+                                    <input type="text" class="form-control" name="search_input" id="search_input" placeholder="Search Here">
+                                    <button type="submit" class="btn"></button>
+                                    <span class="ti-close" id="close_search" title="Close Search"></span>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </header>
